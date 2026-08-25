@@ -10,14 +10,6 @@ export default function Navbar() {
           Logo
         </Link>
         <div className="flex gap-4 items-center">
-          <Link
-            href="/dashboard"
-            className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
-          >
-            <Button>
-              Dashboard
-            </Button>
-          </Link>
           <UserProfile />
         </div>
       </div>
