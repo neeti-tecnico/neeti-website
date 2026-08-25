@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 export default function Hero() {
   return (

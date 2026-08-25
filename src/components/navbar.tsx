@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Button } from './ui/button'
 import UserProfile from './user-profile'
 
 export default function Navbar() {
