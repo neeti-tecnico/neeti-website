@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function CursoPage() {
   return (
     <div
-      className="min-h-screen py-20 px-4"
+      className="min-h-screen pt-28 pb-20 px-4"
       style={{ backgroundColor: "var(--cosmic-void)" }}
     >
       <SpaceNavigation />

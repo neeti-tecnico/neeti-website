@@ -66,6 +66,20 @@ const SATS = [
   { x: 1250, y: 190 },
   { x: 800, y: 430 },
 ];
+// Cada satélite deriva devagar numa pequena órbita (elipse): amplitude em x/y (unidades do desenho),
+// período em segundos e fase de partida. Mexe aqui para mudar o movimento.
+const SAT_DRIFT = [
+  { ax: 34, ay: 12, period: 18, phase: 0.0 },
+  { ax: 30, ay: 14, period: 22, phase: 1.7 },
+  { ax: 36, ay: 10, period: 20, phase: 3.1 },
+  { ax: 32, ay: 13, period: 24, phase: 4.4 },
+  { ax: 28, ay: 16, period: 16, phase: 5.6 },
+];
+const satPos = (i: number, t: number) => {
+  const d = SAT_DRIFT[i];
+  const a = (t / d.period) * Math.PI * 2 + d.phase;
+  return { x: SATS[i].x + d.ax * Math.sin(a), y: SATS[i].y + d.ay * Math.cos(a) };
+};
 const SAT_LINKS: [number, number][] = [
   [0, 1],
   [1, 2],
@@ -223,6 +237,8 @@ export default function DescentJourney() {
   const ringsRef = useRef<SVGGElement>(null);
   const localRef = useRef<SVGGElement>(null);
   const cardRef = useRef<SVGGElement>(null);
+  const satRefs = useRef<(SVGGElement | null)[]>([]);
+  const satLinkRefs = useRef<(SVGLineElement | null)[]>([]);
   const cap1Ref = useRef<HTMLDivElement>(null);
   const cap2Ref = useRef<HTMLDivElement>(null);
   const cap3Ref = useRef<HTMLDivElement>(null);
@@ -237,6 +253,37 @@ export default function DescentJourney() {
     // Quem pediu "reduzir movimento": páramos os loops (pacotes, ondas).
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       svgRef.current?.pauseAnimations();
+    }
+
+    // Satélites a derivar (time-based; pára quando a secção sai do ecrã)
+    let satRaf = 0;
+    let satObs: IntersectionObserver | undefined;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      let on = true;
+      satObs = new IntersectionObserver(([e]) => {
+        on = e.isIntersecting;
+      });
+      satObs.observe(section);
+      const t0 = performance.now();
+      const loop = (now: number) => {
+        if (on) {
+          const t = (now - t0) / 1000;
+          const pos = SATS.map((_, i) => satPos(i, t));
+          pos.forEach((q, i) =>
+            satRefs.current[i]?.setAttribute("transform", `translate(${q.x.toFixed(1)} ${q.y.toFixed(1)}) scale(1.5)`)
+          );
+          SAT_LINKS.forEach(([a, b], i) => {
+            const el = satLinkRefs.current[i];
+            if (!el) return;
+            el.setAttribute("x1", pos[a].x.toFixed(1));
+            el.setAttribute("y1", pos[a].y.toFixed(1));
+            el.setAttribute("x2", pos[b].x.toFixed(1));
+            el.setAttribute("y2", pos[b].y.toFixed(1));
+          });
+        }
+        satRaf = requestAnimationFrame(loop);
+      };
+      satRaf = requestAnimationFrame(loop);
     }
 
     const setOp = (el: SVGGElement | null, v: number) => el?.setAttribute("opacity", v.toFixed(3));
@@ -287,6 +334,8 @@ export default function DescentJourney() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
+      if (satRaf) cancelAnimationFrame(satRaf);
+      satObs?.disconnect();
     };
   }, []);
 
@@ -389,12 +438,28 @@ export default function DescentJourney() {
 
             {/* constelação: ligações entre satélites + satélites */}
             <g fill="none" stroke={CYAN} strokeWidth="1.8" strokeLinecap="round" strokeOpacity="0.55">
-              {SAT_LINKS.map(([a, b]) => (
-                <line key={`${a}-${b}`} className="jr-link" x1={SATS[a].x} y1={SATS[a].y} x2={SATS[b].x} y2={SATS[b].y} />
+              {SAT_LINKS.map(([a, b], i) => (
+                <line
+                  key={`${a}-${b}`}
+                  ref={(el) => {
+                    satLinkRefs.current[i] = el;
+                  }}
+                  className="jr-link"
+                  x1={satPos(a, 0).x.toFixed(1)}
+                  y1={satPos(a, 0).y.toFixed(1)}
+                  x2={satPos(b, 0).x.toFixed(1)}
+                  y2={satPos(b, 0).y.toFixed(1)}
+                />
               ))}
             </g>
-            {SATS.map((s, i) => (
-              <g key={i} transform={`translate(${s.x} ${s.y}) scale(1.5)`}>
+            {SATS.map((_, i) => (
+              <g
+                key={i}
+                ref={(el) => {
+                  satRefs.current[i] = el;
+                }}
+                transform={`translate(${satPos(i, 0).x.toFixed(1)} ${satPos(i, 0).y.toFixed(1)}) scale(1.5)`}
+              >
                 <use href="#jr-sat" />
               </g>
             ))}

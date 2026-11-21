@@ -1,96 +1,109 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, Users, BookOpen, X, Home, GraduationCap, Store, Phone } from 'lucide-react';
-import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
+// Para acrescentar ou mudar uma página da barra, edita esta lista.
+const LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/curso', label: 'Curso' },
+  { href: '/team', label: 'Team' },
+  { href: '/shelf', label: 'Shelf' },
+  { href: '/shop', label: 'Shop' },
+  { href: '/contactos', label: 'Contactos' },
+];
+
+/** Barra de navegação fixa no topo. No telemóvel os links passam para um painel que abre por baixo da barra. */
 export default function SpaceNavigation() {
   const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const menuItems = [
-    { icon: Home, href: '/', label: 'Home' },
-    { icon: GraduationCap, href: '/curso', label: 'Curso' },
-    { icon: Users, href: '/team', label: 'Team' },
-    { icon: BookOpen, href: '/shelf', label: 'Shelf' },
-    { icon: Store, href: '/shop', label: 'Shop' },
-    { icon: Phone, href: '/contactos', label: 'Contactos' },
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // fecha o painel ao mudar de página
+  useEffect(() => setOpen(false), [pathname]);
+
+  const solid = scrolled || open;
 
   return (
-    <>
-      {/* Menu Button - Only visible when menu is closed */}
-      {!isMenuOpen && (
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          className="fixed top-6 right-6 flex items-center gap-3 px-6 py-3 rounded-full z-50 backdrop-blur-sm transition-all duration-300 hover:scale-105"
-          style={{ 
-            backgroundColor: 'rgba(138, 149, 165, 0.2)',
-            border: '1px solid var(--digital-cyan)',
-            boxShadow: '0 0 20px rgba(0, 240, 255, 0.3)',
-            color: 'var(--starlight)',
-          }}
-        >
-          <span className="font-mono text-sm tracking-wider">MENU</span>
-          <div className="flex flex-col gap-1">
-            <div className="w-5 h-0.5 bg-current"></div>
-            <div className="w-5 h-0.5 bg-current"></div>
-            <div className="w-5 h-0.5 bg-current"></div>
-          </div>
-        </button>
-      )}
+    <header
+      className="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
+      style={{
+        background: solid ? 'rgba(11, 12, 34, 0.85)' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))',
+        backdropFilter: solid ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: solid ? 'blur(12px)' : 'none',
+        borderBottom: `1px solid ${solid ? 'rgba(0, 240, 255, 0.18)' : 'transparent'}`,
+      }}
+    >
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8" aria-label="Principal">
+        <Link href="/" aria-label="NEETI – página inicial" className="flex items-center">
+          <Image src="/logo.png" alt="NEETI" width={120} height={37} className="h-8 w-auto" priority />
+        </Link>
 
-      {/* Lateral Menu */}
-      <div
-        className={`fixed top-0 right-0 h-screen w-80 z-40 backdrop-blur-md transition-transform duration-300 ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        style={{
-          backgroundColor: 'rgba(11, 12, 34, 0.95)',
-          borderLeft: '1px solid var(--digital-cyan)',
-          boxShadow: isMenuOpen ? '-10px 0 30px rgba(0, 240, 255, 0.2)' : 'none',
-        }}
-      >
-        {/* Close Button - Only visible when menu is open */}
+        <ul className="hidden items-center gap-1 md:flex">
+          {LINKS.map(({ href, label }) => {
+            const active = pathname === href;
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  aria-current={active ? 'page' : undefined}
+                  className="relative rounded-md px-4 py-2 font-mono text-sm tracking-wider transition-colors hover:text-[var(--digital-cyan)]"
+                  style={{ color: active ? 'var(--digital-cyan)' : 'var(--starlight)' }}
+                >
+                  {label}
+                  <span
+                    className="absolute inset-x-4 -bottom-0.5 h-px transition-opacity"
+                    style={{ backgroundColor: 'var(--digital-cyan)', opacity: active ? 1 : 0 }}
+                  />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
         <button
-          onClick={() => setIsMenuOpen(false)}
-          className="absolute top-6 right-6 p-2 transition-all duration-300 hover:scale-110 hover:rotate-90"
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          className="nav-toggle p-2 md:hidden"
           style={{ color: 'var(--starlight)' }}
+          aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={open}
         >
-          <X className="w-6 h-6" />
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
+      </nav>
 
-        {/* Menu Items */}
-        <nav className="flex flex-col gap-4 mt-24 px-8">
-          {menuItems.map(({ icon: Icon, href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={() => setIsMenuOpen(false)}
-              className="flex items-center gap-4 px-6 py-4 rounded-lg transition-all duration-300 hover:scale-105"
-              style={{
-                backgroundColor: pathname === href ? 'rgba(0, 240, 255, 0.1)' : 'transparent',
-                border: `1px solid ${pathname === href ? 'var(--digital-cyan)' : 'transparent'}`,
-                color: pathname === href ? 'var(--digital-cyan)' : 'var(--starlight)',
-                boxShadow: pathname === href ? '0 0 20px rgba(0, 240, 255, 0.3)' : 'none',
-              }}
-            >
-              <Icon className="w-6 h-6" />
-              <span className="font-mono text-lg tracking-wider">{label}</span>
-            </Link>
-          ))}
-        </nav>
-      </div>
-
-      {/* Overlay */}
-      {isMenuOpen && (
-        <div
-          className="fixed inset-0 z-30 transition-all duration-300 backdrop-blur-sm"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
-          onClick={() => setIsMenuOpen(false)}
-        />
+      {open && (
+        <ul className="flex flex-col gap-1 px-4 pb-4 md:hidden">
+          {LINKS.map(({ href, label }) => {
+            const active = pathname === href;
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className="block rounded-lg px-4 py-3 font-mono tracking-wider"
+                  style={{
+                    color: active ? 'var(--digital-cyan)' : 'var(--starlight)',
+                    backgroundColor: active ? 'rgba(0, 240, 255, 0.08)' : 'transparent',
+                  }}
+                >
+                  {label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       )}
-    </>
+    </header>
   );
 }

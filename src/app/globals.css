@@ -202,3 +202,9 @@ button:hover, .button:hover {
     transform: none;
   }
 }
+
+/* O botão do menu (telemóvel) não leva o brilho/zoom global dos botões */
+.nav-toggle:hover {
+  transform: none;
+  box-shadow: none;
+}

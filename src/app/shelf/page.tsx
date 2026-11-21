@@ -7,7 +7,7 @@ import { ExternalLink } from "lucide-react";
 export default function ShelfPage() {
   return (
     <div
-      className="min-h-screen py-20 px-4"
+      className="min-h-screen pt-28 pb-20 px-4"
       style={{ backgroundColor: "var(--cosmic-void)" }}
     >
       <SpaceNavigation />
