@@ -19,8 +19,6 @@ export default function ShelfPage() {
             className="text-6xl md:text-8xl font-bold mb-6"
             style={{
               color: "var(--starlight)",
-              textShadow:
-                "0 0 20px var(--digital-cyan), 0 0 40px var(--digital-cyan)",
             }}
           >
             SHELF

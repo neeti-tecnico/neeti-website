@@ -45,7 +45,10 @@ src/components/         peças reutilizáveis (menu, footer, secções, hero)
 
 | Quero mudar… | Ficheiro |
 |---|---|
-| Textos e imagens das secções da home | `src/app/page.tsx` |
+| Legendas da descida (1, 2, 3) na home | `src/components/descent-journey.tsx` (objeto `COPY`) |
+| Cartões "O que fazemos" da home | `src/components/what-we-do.tsx` (lista `ITEMS`) |
+| Notícias e eventos da home | `src/data/news.ts` (vazio = secção escondida no site publicado) |
+| Faixa "Junta-te ao NEETI" | `src/components/join-band.tsx` |
 | Direção atual e anos anteriores | `src/app/team/page.tsx` (listas `currentYearDirectors` e `pastYears`) |
 | Emails e órgãos sociais | `src/app/contactos/page.tsx` |
 | Redes sociais no rodapé | `src/components/footer.tsx` |

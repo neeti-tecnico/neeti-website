@@ -161,3 +161,44 @@ button:hover, .button:hover {
   transform: scale(1.05) translateY(-2px);
   box-shadow: 0 0 20px var(--digital-cyan);
 }
+/* ---------- Cartões e links partilhados (estilo "vidro" no tema NEETI) ---------- */
+.glass-card {
+  background: rgba(11, 12, 34, 0.55);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 240, 255, 0.18);
+  border-radius: 1rem;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+  border-color: rgba(0, 240, 255, 0.5);
+}
+.glass-card-lift:hover {
+  transform: translateY(-4px);
+}
+
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--digital-cyan);
+}
+.link-more .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.link-more:hover .arrow {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-card,
+  .link-more .arrow {
+    transition: none;
+  }
+  .glass-card-lift:hover,
+  .link-more:hover .arrow {
+    transform: none;
+  }
+}
