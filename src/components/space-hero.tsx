@@ -74,7 +74,7 @@ export default function SpaceHero() {
 
       {/* Earth glimpse at top - scrolls with page */}
       <div
-        className="absolute top-0 left-0 right-0 h-[60vh] w-full"
+        className="absolute top-16 left-0 right-0 h-[60vh] w-full"
         style={{
           backgroundImage: "url(/earth-custom.png)",
           backgroundSize: "cover",
@@ -85,7 +85,7 @@ export default function SpaceHero() {
 
       {/* Edge fade for seamless Earth transition */}
       <div
-        className="absolute top-0 left-0 right-0 h-[60vh]"
+        className="absolute top-16 left-0 right-0 h-[60vh]"
         style={{
           background:
             "radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.7) 80%, #000000 100%)",
@@ -94,7 +94,7 @@ export default function SpaceHero() {
 
       {/* Gradient fade from Earth to deep space */}
       <div
-        className="absolute top-0 left-0 right-0 h-screen"
+        className="absolute top-16 left-0 right-0 h-screen"
         style={{
           background:
             "linear-gradient(to bottom, transparent 0%, transparent 25%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.9) 55%, #000000 70%)",
