@@ -11,7 +11,7 @@ interface ContentSectionProps {
 export default function ContentSection({ 
   title = "Section Title",
   content = "Add your content here. This is a placeholder text that demonstrates how your content will appear in this section.",
-  imageUrl = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+  imageUrl = "/telecom.jpg",
   reverse = false,
   buttonLink = "#"
 }: ContentSectionProps) {
