@@ -1,5 +1,6 @@
 import SpaceNavigation from "@/components/space-navigation";
 import SpaceHero from "@/components/space-hero";
+import DescentJourney from "@/components/descent-journey";
 import ContentSection from "@/components/content-section";
 import Footer from "@/components/footer";
 import ShootingStars from "@/components/shooting-stars";
@@ -9,6 +10,7 @@ export default function Home() {
     <div className="relative min-h-screen">
       <SpaceNavigation />
       <SpaceHero />
+      <DescentJourney />
       <ShootingStars />
 
       <ContentSection
