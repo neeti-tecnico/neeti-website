@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import OrbitScene from "@/components/orbit-scene";
 
 export default function SpaceHero() {
   const [mounted, setMounted] = useState(false);
@@ -99,6 +100,9 @@ export default function SpaceHero() {
             "linear-gradient(to bottom, transparent 0%, transparent 25%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0.9) 55%, #000000 70%)",
         }}
       />
+
+      {/* CENA 1: satélites em órbita (alinhados com a imagem da Terra) */}
+      <OrbitScene />
 
       {/* Shooting stars moved to ShootingStars component */}
 

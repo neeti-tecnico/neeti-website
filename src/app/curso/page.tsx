@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function CursoPage() {
   return (
     <div
-      className="min-h-screen py-20 px-4"
+      className="min-h-screen pt-28 pb-20 px-4"
       style={{ backgroundColor: "var(--cosmic-void)" }}
     >
       <SpaceNavigation />
@@ -19,8 +19,6 @@ export default function CursoPage() {
             className="text-5xl md:text-7xl font-bold mb-6"
             style={{
               color: "var(--starlight)",
-              textShadow:
-                "0 0 20px var(--digital-cyan), 0 0 40px var(--digital-cyan)",
             }}
           >
             Engenharia de Telecomunicações e Informática
@@ -41,7 +39,6 @@ export default function CursoPage() {
               className="text-3xl md:text-4xl font-bold mb-6"
               style={{
                 color: "var(--starlight)",
-                textShadow: "0 0 15px var(--plasma-magenta)",
               }}
             >
               ETI
@@ -147,7 +144,6 @@ export default function CursoPage() {
               className="text-3xl md:text-4xl font-bold mb-8"
               style={{
                 color: "var(--starlight)",
-                textShadow: "0 0 15px var(--plasma-magenta)",
               }}
             >
               Casos de Sucesso:

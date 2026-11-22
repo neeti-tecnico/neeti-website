@@ -6,7 +6,7 @@ import SpaceNavigation from "@/components/space-navigation";
 export default function ShopPage() {
   return (
     <div
-      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center"
+      className="min-h-screen pt-28 pb-20 px-4 flex flex-col items-center justify-center"
       style={{ backgroundColor: "var(--cosmic-void)" }}
     >
       <SpaceNavigation />
@@ -16,8 +16,6 @@ export default function ShopPage() {
           className="text-6xl md:text-8xl font-bold mb-8"
           style={{
             color: "var(--starlight)",
-            textShadow:
-              "0 0 20px var(--digital-cyan), 0 0 40px var(--digital-cyan)",
           }}
         >
           SHOP
