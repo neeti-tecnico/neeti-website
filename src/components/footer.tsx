@@ -12,10 +12,11 @@ export default function Footer() {
         }}
       >
         <Image
-          src="/tecnico-lisboa-logo.png"
-          alt="Técnico Lisboa"
-          width={420}
-          height={164}
+          src="/tecnico-ulisboa-logo.svg"
+          alt="Técnico ULisboa – Instituto Superior Técnico, Universidade de Lisboa"
+          width={561}
+          height={246}
+          unoptimized
           className="object-contain w-full h-full"
           priority
         />
