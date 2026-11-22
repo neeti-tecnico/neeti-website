@@ -41,7 +41,6 @@ export default function SpaceNavigation() {
         background: solid ? 'rgba(11, 12, 34, 0.85)' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))',
         backdropFilter: solid ? 'blur(12px)' : 'none',
         WebkitBackdropFilter: solid ? 'blur(12px)' : 'none',
-        borderBottom: `1px solid ${solid ? 'rgba(0, 240, 255, 0.18)' : 'transparent'}`,
       }}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8" aria-label="Principal">
