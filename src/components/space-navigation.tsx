@@ -20,16 +20,28 @@ const LINKS = [
 export default function SpaceNavigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // fecha o painel ao mudar de página
   useEffect(() => setOpen(false), [pathname]);
 
+  const solid = scrolled || open;
+
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 "
+      className="fixed inset-x-0 top-0 z-50 transition-colors duration-300"
       style={{
-        backgroundColor: 'var(--cosmic-void)',
-        borderBottom: '1px solid rgba(0, 240, 255, 0.18)',
+        background: solid ? 'rgba(11, 12, 34, 0.85)' : 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))',
+        backdropFilter: solid ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: solid ? 'blur(12px)' : 'none',
+        borderBottom: `1px solid ${solid ? 'rgba(0, 240, 255, 0.18)' : 'transparent'}`,
       }}
     >
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8" aria-label="Principal">

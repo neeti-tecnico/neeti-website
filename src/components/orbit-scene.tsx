@@ -175,7 +175,7 @@ export default function OrbitScene() {
   return (
     <svg
       ref={svgRef}
-      className="absolute top-16 left-0 w-full h-[60vh] pointer-events-none"
+      className="absolute top-0 left-0 w-full h-[60vh] pointer-events-none"
       viewBox="0 0 1536 1024"
       preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"
