@@ -32,7 +32,7 @@ export default function NewsSection() {
         </div>
 
         {isDemo && (
-          <p className="mt-6 font-mono text-xs" style={{ color: "var(--tungsten-steel)" }}>
+          <p className="mt-6 text-xs" style={{ color: "var(--tungsten-steel)" }}>
             [só em desenvolvimento] Itens de exemplo. Para publicar novidades, edita src/data/news.ts.
           </p>
         )}
@@ -41,7 +41,7 @@ export default function NewsSection() {
           {items.map((item) => {
             const inner = (
               <>
-                <div className="font-mono text-xs uppercase tracking-wider md:w-44 md:shrink-0" style={{ color: "var(--tungsten-steel)" }}>
+                <div className="text-xs uppercase tracking-wider md:w-44 md:shrink-0" style={{ color: "var(--tungsten-steel)" }}>
                   <span>{formatDate(item.date)}</span>
                   {item.source && (
                     <span className="block md:mt-1" style={{ color: "var(--digital-cyan)" }}>

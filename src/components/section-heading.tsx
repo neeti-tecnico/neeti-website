@@ -16,7 +16,7 @@ export default function SectionHeading({
   return (
     <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
       <p
-        className="mb-3 font-mono text-xs uppercase tracking-[0.3em]"
+        className="mb-3 text-xs uppercase tracking-[0.3em]"
         style={{ color: "var(--digital-cyan)" }}
       >
         {eyebrow}

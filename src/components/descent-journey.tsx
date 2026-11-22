@@ -400,7 +400,7 @@ export default function DescentJourney() {
             ))}
 
             {/* marcas de altitude (no lado direito) */}
-            <g fontFamily="'Overpass Mono', monospace" fontSize="20" fill="#8fd8ff" opacity="0.65">
+            <g fontFamily="inherit" fontSize="20" fill="#8fd8ff" opacity="0.65">
               {ALTITUDES.map((a) => (
                 <g key={a.y}>
                   <line x1="1470" y1={a.y} x2="1580" y2={a.y} stroke="#8fd8ff" strokeOpacity="0.5" />
@@ -413,7 +413,7 @@ export default function DescentJourney() {
 
             {/* cartão: "anatomia" de um pacote IP */}
             <g ref={cardRef} opacity={L0.cardOp.toFixed(3)}>
-              <g transform="translate(1100 1010)" fontFamily="'Overpass Mono', monospace">
+              <g transform="translate(1100 1010)" fontFamily="inherit">
                 <rect width="400" height="104" rx="10" fill="#06122b" fillOpacity="0.78" stroke={CYAN} strokeOpacity="0.6" />
                 <text x="18" y="29" fontSize="16" fill="#8fd8ff" letterSpacing="3">
                   PACOTE IP
@@ -523,7 +523,7 @@ export default function DescentJourney() {
               ] as const
             ).map(({ ref, c, op }) => (
               <div key={c.kicker} ref={ref} style={{ gridArea: "1 / 1", ...capStyle(op) }}>
-                <p className="font-mono text-xs tracking-[0.3em] uppercase mb-3" style={{ color: "var(--digital-cyan)" }}>
+                <p className="text-xs tracking-[0.3em] uppercase mb-3" style={{ color: "var(--digital-cyan)" }}>
                   {c.kicker}
                 </p>
                 <h2

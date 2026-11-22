@@ -12,7 +12,7 @@ export default function JoinBand() {
         }}
       >
         <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em]"
+          className="mb-3 text-xs uppercase tracking-[0.3em]"
           style={{ color: "var(--digital-cyan)" }}
         >
           Junta-te

@@ -70,7 +70,7 @@ export default function WhatWeDo() {
 
               <div className="flex flex-1 flex-col p-6">
                 <p
-                  className="mb-2 font-mono text-xs uppercase tracking-[0.25em]"
+                  className="mb-2 text-xs uppercase tracking-[0.25em]"
                   style={{ color: "var(--digital-cyan)" }}
                 >
                   {item.kicker}

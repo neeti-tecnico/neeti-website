@@ -56,7 +56,7 @@ export default function SpaceNavigation() {
                 <Link
                   href={href}
                   aria-current={active ? 'page' : undefined}
-                  className="relative rounded-md px-4 py-2 font-mono text-sm tracking-wider transition-colors hover:text-[var(--digital-cyan)]"
+                  className="relative rounded-md px-4 py-2 text-sm tracking-wider transition-colors hover:text-[var(--digital-cyan)]"
                   style={{ color: active ? 'var(--digital-cyan)' : 'var(--starlight)' }}
                 >
                   {label}
@@ -90,7 +90,7 @@ export default function SpaceNavigation() {
               <li key={href}>
                 <Link
                   href={href}
-                  className="block rounded-lg px-4 py-3 font-mono tracking-wider"
+                  className="block rounded-lg px-4 py-3 tracking-wider"
                   style={{
                     color: active ? 'var(--digital-cyan)' : 'var(--starlight)',
                     backgroundColor: active ? 'rgba(0, 240, 255, 0.08)' : 'transparent',
